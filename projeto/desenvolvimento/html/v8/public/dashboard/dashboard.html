@@ -29,24 +29,26 @@
 
 <body onload="validarSessao()">
     <div class="janela">
-        <div class="header-left">
-            <img class="imagemdash" src="../assets/imgs/logocomfrase.png" alt="typeonelogo">
 
+        <div class="header-left">
+
+            <img class="imagemdash" src="../assets/imgs/logocomfrase.png" alt="typeonelogo">
 
             <div class="hello">
                 <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
             </div>
 
-            <div class="btn-nav-white">
+            <div class="btn-nav">
                 <a href="./registro.html">
                     <h3>Registrar</h3>
                 </a>
+
             </div>
 
-            <div class="btn-nav">
-
-                <h3>Gráficos</h3>
-
+            <div class="btn-nav-white">
+                <a href="./dashboard.html">
+                    <h3>Gráficos</h3>
+                </a>
             </div>
 
             <div class="btn-nav-white">
@@ -54,32 +56,33 @@
                     <h3 style="display: flex;justify-content: center;">Observações</h3>
                 </a>
             </div>
-
             <div class="btn-logout" onclick="limparSessao()">
                 <h3>Sair</h3>
             </div>
-
         </div>
+    </div>
 
-        <div class="dash">
+    </div>
 
-            <div class="btns-dash" id="btns-dias">
-                <!-- O gráfico é chamado de acordo com o id (fk_aquario) do banco  -->
+    <div class="dash">
+
+        <div class="btns-dash" id="btns-dias">
+            <!-- O gráfico é chamado de acordo com o id (fk_aquario) do banco  -->
+        </div>
+        <div id="graficos">
+            <span  style="color: #32b9cd; margin-left: 15%;margin-bottom: 5%;">Selecione o dia</span>
+            <div style="margin: 20px 0; margin-left: 18%; display: flex ;align-items: center;">
+                <select class="camposelect" id="selectdia">
+                    <option value="domingo">Domingo</option>
+                    <option value="segunda">Segunda</option>
+                    <option value="terca">Terça</option>
+                    <option value="quarta">Quarta</option>
+                    <option value="quinta">Quinta</option>
+                    <option value="sexta">Sexta</option>
+                    <option value="sabado">Sábado</option>
+                </select>
             </div>
             <div id="graficos">
-                <div style="margin: 20px 0; display: flex ;align-items: center;">
-                    <span class="camposelect">Selecione o dia</span>
-                    <select id="dias">
-                        <option value="domingo">Domingo</option>
-                        <option value="segunda">Segunda</option>
-                        <option value="terca">Terça</option>
-                        <option value="quarta">Quarta</option>
-                        <option value="quinta">Quinta</option>
-                        <option value="sexta">Sexta</option>
-                        <option value="sabado">Sábado</option>
-                    </select>
-                </div>
-                 <div id="graficos">
                 <h1 id="diastitulo" class="titulodash"></h1>
                 <div class="canvasdash">
                     <canvas id="linha" style="max-width: 900px;"></canvas>
@@ -90,10 +93,10 @@
                     <p id="aviso" style="color: white;"></p>
                 </div>
             </div>
-            </div>
         </div>
     </div>
-           
+    </div>
+
 
 </body>
 
@@ -105,16 +108,16 @@
     let proximaAtualizacao;
     let grafico_Linha = null;
     let grafico_pizza = null
-    let dados_linha_atual = {labels: [], datasets: [{data: []}]}
+    let dados_linha_atual = { labels: [], datasets: [{ data: [] }] }
 
     window.onload = function () {
-        const select = document.getElementById('camposelect');
-        document.getElementById('camposelect').value = 'domingo';
+        const select = document.getElementById('selectdia');
+        document.getElementById('selectdia').value = 'domingo';
         document.getElementById('titulodash').innerHTML = 'Glicemias de domingo';
         obterDadosGrafico(select.value)
-        
+
     }
- 
+
 
 
     // O gráfico é construído com três funções:
@@ -130,16 +133,16 @@
     //     Para ajustar o "select", ajuste o comando sql em src/models
     function obterDadosGrafico() {
         const ID_USUARIO = sessionStorage.ID_USUARIO;
-        
+
         document.getElementById('titulodash').innerHTML = `Glicemias de <span style="color:#32b9cd">${dias}</span>`;
         if (proximaAtualizacao != undefined) {
             clearTimeout(proximaAtualizacao);
         }
-        var diaSelecionado = dias.value
+        var diaSelecionado = selectdia.value
         console.log("dia selecionado:" + ipt_dia);
 
         fetch(`/glicemia/ultimas/${diaSelecionado}`, { cache: 'no-store' }).then(function (response) {
-                
+
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
@@ -186,16 +189,15 @@
         // Inserindo valores recebidos em estrutura para plotar o gráfico
         for (i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
-            labels.push(registro.momento_grafico);
-            dados.datasets[0].data.push(registro.umidade);
-            dados.datasets[1].data.push(registro.temperatura);
+            labels.push(registro.horario);
+            dados.datasets[0].data.push(registro.valor);
         }
 
         console.log('----------------------------------------------')
         console.log('O gráfico será plotado com os respectivos valores:')
-        console.log('Labels:')
+        console.log('Labels(horários):')
         console.log(labels)
-        console.log('Dados:')
+        console.log('Dados glicemia:')
         console.log(dados.datasets)
         console.log('----------------------------------------------')
 
@@ -207,11 +209,11 @@
 
         // Adicionando gráfico criado em div na tela
         let myChart = new Chart(
-            document.getElementById(`myChartCanvas${idAquario}`),
+            document.getElementById(`myChartCanvas`),
             config
         );
 
-        setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
+        setTimeout(() => atualizarGrafico(diaSelecionado, dados, myChart), 2000);
     }
 
 
@@ -220,58 +222,50 @@
 
     //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
     //     Para ajustar o "select", ajuste o comando sql em src/models
-    function atualizarGrafico(idAquario, dados, myChart) {
+    function atualizarGrafico(diaSelecionado, dados, myChart) {
 
 
 
-        fetch(`/medidas/tempo-real/${idAquario}`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/glicemia/tempo-real/${diaSelecionado}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (novoRegistro) {
 
                     obterdados(idAquario);
-                    // alertar(novoRegistro, idAquario);
                     console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
                     console.log(`Dados atuais do gráfico:`);
                     console.log(dados);
 
-                    let avisoCaptura = document.getElementById(`avisoCaptura${idAquario}`)
-                    avisoCaptura.innerHTML = ""
 
 
-                    if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
-                        console.log("---------------------------------------------------------------")
-                        console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-                        avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
-                        console.log("Horário do novo dado capturado:")
-                        console.log(novoRegistro[0].momento_grafico)
-                        console.log("Horário do último dado capturado:")
-                        console.log(dados.labels[dados.labels.length - 1])
-                        console.log("---------------------------------------------------------------")
+                    if (novoRegistro.length == 0) {
+                        console.log('Nenhum dado encontrado.');
+                        proximaAtualizacao = setTimeout(() => atualizarGrafico(diaSelecionado, dados, myChart), 2000);
+                        return;
                     } else {
                         // tirando e colocando valores no gráfico
                         dados.labels.shift(); // apagar o primeiro
-                        dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
+                        dados.datasets[0].data.shift();
 
-                        dados.datasets[0].data.shift();  // apagar o primeiro de umidade
-                        dados.datasets[0].data.push(novoRegistro[0].umidade); // incluir uma nova medida de umidade
-
-                        dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
-                        dados.datasets[1].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
+                        dados.labels.push(novoRegistro[0].horario);
+                        dados.datasets[0].data.push(novoRegistro[0].valor);
 
                         myChart.update();
                     }
 
                     // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    proximaAtualizacao = setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
+                    proximaAtualizacao = setTimeout(() => atualizarGrafico(diaSelecionado, dados, myChart), 2000);
+
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
                 // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
+                proximaAtualizacao = setTimeout(() => atualizarGrafico(diaSelecionado, dados, myChart), 2000);
             }
         })
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                proximaAtualizacao = setTimeout(() => atualizarGrafico(diaSelecionado, dados, myChart), 2000);
+
             });
 
     }

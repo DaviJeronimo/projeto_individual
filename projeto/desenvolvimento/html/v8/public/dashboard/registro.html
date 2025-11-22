@@ -86,8 +86,55 @@
 </body>
 
 <script>
+    function registrar() {
+        var valor = Number(ipt_valor.value);
+        var horario = ipt_horario.value;
+        var diaDaSemana = selectdia.value;
+        var idusuario = sessionStorage.ID_USUARIO;
 
+        if (valor == '' || valor <= 0 || horario == "" || selectdia == '#')  {
+            alert('Preencha todos os campos corretamente!')
+            return;
+        }
+    
+    var nivel = '';
+    if (valor < 70) {
+        nivel = 'Baixa';
+    }
+    else if (valor <= 140) {
+        nivel = 'Ideal';
+    }
+    else{
+        nivel = 'Alta';
+    }
 
+    fetch("/glicemia/registrar",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({
+            valorServer: valor,
+            horarioServer: horario,
+            diaServer: diaDaSemana,
+            nivelServer: nivel,
+            usuarioServer: idusuario   
+    })
+})
+
+.then(function(resposta) {
+    if (reposta.ok) {
+        alert('Glicemia registrada com sucesso!')
+        ipt_valor.value = '';
+        ipt_horario.value = '';
+        selectdia.value = '#';
+    }else{
+        alert("Erro ao registrar.")
+    }
+})
+.catch(function(erro) {
+    console.error('Erro fetch:', erro);
+    alert("Erro ao registrar (ver console).")
+});
+}
 
 </script>
 
