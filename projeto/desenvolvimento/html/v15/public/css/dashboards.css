@@ -1,0 +1,415 @@
+/* pagina mural */
+
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Audiowide', sans-serif;
+  background-image: url(../assets/imgs/registroglicemia.png);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  overflow: hidden;
+}
+
+.canvasdash {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  padding: 10px;
+}
+
+#linha {
+  max-width: 600px;
+  max-height: 400px;
+  min-width: 200px;
+  min-height: 200px;
+}
+
+#pizza {
+  max-width: 400px;
+  max-height: 400px;
+  min-width: 200px;
+  min-height: 200px;
+}
+
+.graficos {
+  color: #32b9cd;
+  margin-left: 15%;
+  margin-bottom: 5%;
+  font-size: 200%;
+
+}
+
+.camposelect {
+  margin-bottom: 10px;
+  border: 2px solid #32b9cd;
+  color: black;
+  background-color: white;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.camposelectdash {
+  margin-bottom: 10px;
+  border: 2px solid #32b9cd;
+  color: white;
+  background-color: #161618;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.titulodash {
+  margin-left: 32.5%;
+  color: #ffffff;
+}
+
+.label-captura {
+  display: flex;
+  justify-content: center;
+}
+
+.dash-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  color: rgb(216, 216, 216);
+  font-family: 'Audiowide', sans-serif;
+}
+
+
+/* pagina graficos */
+
+.imagemdash {
+  display: flex;
+  width: 80%;
+  height: auto;
+}
+
+.dash-header {
+  background-color: transparent;
+}
+
+.dash {
+  width: 80%;
+  position: relative;
+  top: 0;
+  left: 20%;
+  background-color: rgba(0, 0, 0, 0.582);
+  height: 100%;
+  overflow: auto;
+}
+
+.area-parametros-alerta {
+  /* border: 2px solid pink; */
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  margin: auto;
+  margin-top: 10px;
+  background-color: #161618;
+}
+
+.area-parametros-alerta .titulo-legenda {
+  color: white;
+  font-weight: 600;
+  width: fit-content;
+  margin: 10px 20px;
+}
+
+.parametros-alerta {
+  display: flex;
+  width: 100%;
+}
+
+.item-regua {
+  width: 20%;
+  text-align: center;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+}
+
+.item-regua p {
+  margin: 0;
+  font-weight: 500;
+}
+
+.item-regua p:nth-child(2) {
+  font-weight: 800;
+}
+
+.camposregistro {
+  border-radius: 6px;
+  border: 1px solid #32b9cd;
+  background-color: #111;
+  color: white;
+  text-align: center;
+}
+
+
+.registro {
+  display: flex;
+}
+
+.registrocalc {
+  width: 100%;
+}
+
+#camposcalc input {
+  width: 90%;
+  margin-bottom: 12px;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #32b9cd;
+  background-color: #111;
+  color: white;
+}
+
+.botaocalc {
+  width: 92%;
+  padding: 10px;
+  margin-top: 12px;
+  background-color: #32b9cd;
+  color: white;
+  border-radius: 8px;
+  border: none;
+  font-weight: bold;
+  font-family: 'Audiowide', 'sans-serif';
+  font-size: 100%;
+  cursor: pointer;
+}
+
+
+.position {
+  display: flex;
+  width: 50%;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin-left: 30%;
+}
+
+.positioncalc {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+}
+
+
+
+.imginsulin {
+  max-width: 70%;
+  height: auto;
+  display: block;
+  margin-bottom: 30px;
+}
+
+#volta {
+  width: 30%;
+  margin: 80% auto;
+  margin-left: 10%;
+}
+
+.dashcalc {
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  margin-left: 22%;
+  margin-top: -1.5%;
+  color: white;
+  padding-bottom: 50px;
+}
+
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  height: 450px;
+  width: 100%;
+  align-items: center;
+  color: white;
+}
+
+
+
+.btns-dash {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+  flex-wrap: wrap;
+  padding: 0 30% 0 30%;
+}
+
+.graph {
+  width: 70%;
+  margin: auto;
+  padding-top: 10px;
+}
+
+.tituloGraficos {
+  color: rgb(216, 216, 216);
+  display: flex;
+  justify-content: center;
+}
+
+.btn-chart {
+  font-family: 'Audiowide', sans-serif;
+  border: 0;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 10px 15px;
+  color: #e6005a;
+  background-color: white;
+  margin: 5px;
+  border-radius: 3px;
+  cursor: pointer
+}
+
+.btn-pink {
+  color: white;
+  background-color: #e6005a;
+}
+
+.btn-white {
+  color: #e6005a;
+  background-color: white;
+
+}
+
+.label-captura {
+  height: 80px;
+}
+
+.display-none {
+  display: none;
+}
+
+.display-flex {
+  display: flex;
+}
+
+.display-block {
+  display: block;
+}
+
+canvas {
+  width: 100% !important;
+  height: 100% !important;
+  margin-bottom: 20%;
+}
+
+/* PAGINA DOS GRÁFICOS 2023 */
+
+.janela {
+  display: flex;
+  /* width: 100vw; */
+}
+
+
+.header-left a {
+  text-decoration: none;
+  color: white;
+}
+
+.header-left {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  height: 100vh;
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  border-right: 3px solid #32b9cd;
+  background-color: #161618;
+
+}
+
+.dash-right {
+  display: flex;
+  width: 70%;
+  height: fit-content;
+  background-color: #161618;
+  position: relative;
+  top: 0;
+  left: 25%;
+  height: 100vh;
+  overflow: auto;
+}
+
+.header-left h1 {
+  color: #32b9cd;
+}
+
+.hello {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.hello h3 {
+  color: #32b9cd;
+  font-weight: 300;
+  font-size: 1.2rem;
+}
+
+.hello h3 span {
+  font-weight: 800;
+}
+
+.btn-nav {
+  width: 40%;
+  color: white;
+  border: 3px solid white;
+  background-color: #32b9cd;
+  border-radius: 5px;
+  text-align: center;
+  padding: 2% 5%;
+}
+
+.btn-nav-white {
+  width: 40%;
+  background-color: #32b9cd;
+  border: 3px solid white;
+  border-radius: 5px;
+  text-align: center;
+  padding: 2% 5%;
+}
+
+.btn-nav-white h3 {
+  color: white;
+  padding: 0;
+  margin: 0;
+}
+
+.btn-nav h3,
+.btn-logout h3 {
+  margin: 0;
+  padding: 0;
+}
+
+.btn-logout {
+  margin: 0;
+  padding: 0;
+  width: 20%;
+  background-color: #32b9cd;
+  color: white;
+  border-radius: 10px;
+  text-align: center;
+  padding: 10px 15px;
+  margin-bottom: 100px;
+  cursor: pointer;
+}
